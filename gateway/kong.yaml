@@ -1,0 +1,13 @@
+_format_version: "3.0"
+_transform: true
+
+services:
+  - name: producer
+    url: http://producer:8081
+    routes:
+      - name: orders
+        paths:
+          - /orders
+        methods:
+          - POST
+        strip_path: false

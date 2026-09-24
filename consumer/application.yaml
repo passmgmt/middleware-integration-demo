@@ -1,0 +1,21 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: consumer
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:19092}
+    consumer:
+      group-id: order-processor
+      enable-auto-commit: false
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: com.example.consumer
+        spring.json.value.default.type: com.example.consumer.ConsumerApplication$OrderCreated
+        spring.json.use.type.headers: false
+    listener:
+      ack-mode: manual
+      common-error-handler: org.springframework.kafka.listener.DefaultErrorHandler
